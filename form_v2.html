@@ -1,0 +1,786 @@
+<title>Diagnóstico Institucional PAP · ANCLA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #1a1814; --ink-2: #4a4640; --ink-3: #8a857e;
+  --paper: #faf8f4; --paper-2: #f2ede6; --paper-3: #e8e0d4;
+  --accent: #2d5a3d; --accent-light: #e8f0eb; --accent-mid: #4a8a5e;
+  --warn: #c0392b; --border: rgba(26,24,20,0.12);
+  --radius: 4px; --radius-lg: 8px;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --shadow: 0 1px 3px rgba(26,24,20,0.08), 0 4px 16px rgba(26,24,20,0.04);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink:#e8e4df;--ink-2:#b8b0a6;--ink-3:#7a736a;
+    --paper:#1a1814;--paper-2:#22201c;--paper-3:#2e2b26;
+    --accent:#4a8a5e;--accent-light:#1a2e22;--accent-mid:#6aaa7e;
+    --border:rgba(232,228,223,0.10);
+    --shadow:0 1px 3px rgba(0,0,0,0.3),0 4px 16px rgba(0,0,0,0.2);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ink:#e8e4df;--ink-2:#b8b0a6;--ink-3:#7a736a;
+  --paper:#1a1814;--paper-2:#22201c;--paper-3:#2e2b26;
+  --accent:#4a8a5e;--accent-light:#1a2e22;--accent-mid:#6aaa7e;
+  --border:rgba(232,228,223,0.10);
+  --shadow:0 1px 3px rgba(0,0,0,0.3),0 4px 16px rgba(0,0,0,0.2);
+  color-scheme:dark;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body); background: var(--paper); color: var(--ink);
+  font-size: 15px; line-height: 1.6; min-height: 100vh;
+  padding-inline: 1.25rem; padding-block: 0 4rem;
+}
+.page-bg { position:fixed;inset:0;pointer-events:none;z-index:0; }
+.accent-block {
+  position:absolute;top:0;left:0;right:0;height:320px;
+  background:linear-gradient(180deg,#eef5f0 0%,transparent 100%);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .accent-block{background:linear-gradient(180deg,#1a2e22 0%,transparent 100%);}
+}
+:root[data-theme="dark"] .accent-block{background:linear-gradient(180deg,#1a2e22 0%,transparent 100%);}
+
+main { position:relative;z-index:1;max-width:680px;margin:0 auto; }
+
+/* HEADER */
+.site-header{padding:1.5rem 0 0;margin-bottom:2.5rem;}
+.header-inner{display:flex;align-items:center;gap:12px;}
+.logo-mark{width:36px;height:36px;background:var(--accent);color:#fff;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;letter-spacing:.04em;flex-shrink:0;}
+.header-text{display:flex;flex-wrap:wrap;align-items:center;gap:6px;}
+.header-title{font-size:14px;font-weight:500;color:var(--ink);}
+.header-sub{font-size:12px;color:var(--ink-3);font-weight:300;}
+.header-pipe{color:var(--paper-3);font-size:12px;}
+
+/* HERO */
+.hero{margin-bottom:3rem;}
+.hero-tag{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-mid);margin-bottom:.75rem;}
+.hero h1{font-family:var(--font-display);font-size:clamp(30px,7vw,46px);font-weight:400;line-height:1.1;color:var(--ink);margin-bottom:1rem;}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.hero-desc{font-size:15px;color:var(--ink-2);max-width:480px;line-height:1.7;margin-bottom:1.5rem;font-weight:300;}
+.progress-wrap{display:flex;align-items:center;gap:12px;}
+.progress-track{flex:1;height:2px;background:var(--paper-3);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease;width:0%;}
+.progress-label{font-size:11px;color:var(--ink-3);white-space:nowrap;}
+
+/* SECTIONS */
+.form-section{background:var(--paper-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;margin-bottom:1.25rem;box-shadow:var(--shadow);transition:border-color .2s;animation:fadeUp .4s ease both;}
+.form-section:focus-within{border-color:var(--accent);}
+.form-section:nth-child(1){animation-delay:.05s;}
+.form-section:nth-child(2){animation-delay:.1s;}
+.form-section:nth-child(3){animation-delay:.15s;}
+.form-section:nth-child(4){animation-delay:.2s;}
+.form-section:nth-child(5){animation-delay:.25s;}
+.form-section:nth-child(6){animation-delay:.3s;}
+.section-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border);}
+.section-num{font-family:var(--font-display);font-size:28px;color:var(--paper-3);line-height:1;flex-shrink:0;margin-top:-2px;}
+.section-header h2{font-size:17px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.section-header p{font-size:13px;color:var(--ink-3);font-weight:300;}
+
+/* FIELDS */
+.fields{display:flex;flex-direction:column;gap:1rem;}
+.field{display:flex;flex-direction:column;gap:6px;flex:1;}
+.field.full{width:100%;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.field-row.thirds{grid-template-columns:1fr 1fr 1fr;}
+@media(max-width:520px){.field-row,.field-row.thirds{grid-template-columns:1fr;}}
+
+label{font-size:13px;font-weight:500;color:var(--ink-2);display:block;}
+.sub-label{font-size:12px;font-weight:400;color:var(--ink-3);}
+.req{color:var(--warn);}
+
+input[type="text"],input[type="number"],input[type="tel"],input[type="time"],select,textarea{
+  font-family:var(--font-body);font-size:14px;font-weight:300;color:var(--ink);
+  background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);
+  padding:9px 12px;width:100%;transition:border-color .15s,background .15s;
+  appearance:none;-webkit-appearance:none;
+}
+input::placeholder,textarea::placeholder{color:var(--ink-3);}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);background:var(--paper);}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a857e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;cursor:pointer;
+}
+textarea{resize:vertical;min-height:80px;line-height:1.6;}
+
+/* CHECK/RADIO */
+.check-group,.radio-group{display:flex;flex-direction:column;gap:6px;}
+.radio-group.inline{flex-direction:row;flex-wrap:wrap;gap:8px;}
+.check-item,.radio-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:background .12s,border-color .12s;font-weight:400!important;}
+.radio-group.inline .radio-item{flex:1 1 auto;min-width:110px;}
+.check-item:hover,.radio-item:hover{background:var(--accent-light);border-color:var(--accent-mid);}
+.check-item input,.radio-item input{width:15px;height:15px;accent-color:var(--accent);flex-shrink:0;cursor:pointer;}
+.check-item span,.radio-item span{font-size:13px;color:var(--ink-2);}
+
+/* TOTAL CHIP */
+.total-chip{display:inline-flex;align-items:center;gap:6px;background:var(--accent-light);border:1px solid var(--accent-mid);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--accent);font-weight:500;margin-top:4px;}
+
+/* SHIFT BLOCK */
+.shift-block{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin-top:4px;}
+.shift-title{font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--accent-mid);margin-bottom:.75rem;}
+.curso-row{display:grid;grid-template-columns:auto 1fr 1fr 1fr 28px;gap:8px;align-items:center;margin-bottom:8px;}
+.curso-row .curso-label{font-size:12px;font-weight:500;color:var(--ink-3);min-width:60px;}
+@media(max-width:520px){
+  .curso-row{grid-template-columns:1fr 1fr;gap:6px;}
+  .curso-row .curso-label{grid-column:1/-1;margin-bottom:0;}
+  .curso-row .del-btn{justify-self:end;}
+}
+.add-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--accent);background:var(--accent-light);border:1px dashed var(--accent-mid);border-radius:var(--radius);padding:6px 14px;cursor:pointer;transition:background .12s;}
+.add-btn:hover{background:var(--accent);color:#fff;}
+.del-btn{width:26px;height:26px;border:1px solid var(--border);border-radius:var(--radius);background:transparent;color:var(--ink-3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:border-color .12s,color .12s;}
+.del-btn:hover{border-color:var(--warn);color:var(--warn);}
+
+/* FOOTER */
+.form-footer{display:flex;flex-direction:column;align-items:flex-end;gap:12px;margin-top:2rem;}
+.privacy-note{font-size:12px;color:var(--ink-3);font-weight:300;display:flex;align-items:center;gap:6px;align-self:flex-start;}
+.submit-btn{display:flex;align-items:center;gap:8px;padding:12px 28px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:500;cursor:pointer;transition:background .15s,transform .1s;}
+.submit-btn:hover{background:#234d34;}
+.submit-btn:active{transform:scale(.98);}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;}
+.spinner{animation:spin .8s linear infinite;}
+.hidden{display:none!important;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ERROR */
+input.error,select.error,textarea.error{border-color:var(--warn);}
+.field-error{font-size:11px;color:var(--warn);margin-top:2px;}
+
+/* SUCCESS */
+.success-screen{text-align:center;padding:5rem 2rem;animation:fadeUp .5s ease;}
+.success-icon{width:64px;height:64px;background:var(--accent-light);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 1.5rem;border:2px solid var(--accent-mid);}
+.success-screen h2{font-family:var(--font-display);font-size:32px;font-weight:400;margin-bottom:.75rem;color:var(--ink);}
+.success-screen p{font-size:15px;color:var(--ink-2);max-width:360px;margin:0 auto 2rem;font-weight:300;line-height:1.7;}
+.reset-btn{padding:10px 24px;background:transparent;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--ink-2);cursor:pointer;transition:border-color .15s;}
+.reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+</style>
+
+<div class="page-bg"><div class="accent-block"></div></div>
+
+<main>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-mark">UPS</div>
+      <div class="header-text">
+        <span class="header-title">ANCLA: Acción en Crisis</span>
+        <span class="header-pipe">|</span>
+        <span class="header-sub">Universidad Politécnica Salesiana · Período 68</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <p class="hero-tag">Vinculación con la Sociedad</p>
+    <h1>Diagnóstico <em>Institucional</em></h1>
+    <p class="hero-desc">Complete este formulario para registrar los datos de su institución. La información nos permite planificar las intervenciones de Primeros Auxilios Psicológicos.</p>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="pbar"></div></div>
+      <span class="progress-label" id="plabel">0 de 6 secciones</span>
+    </div>
+  </div>
+
+  <form id="mainForm" novalidate>
+
+    <!-- S1: Datos Institucionales -->
+    <div class="form-section">
+      <div class="section-header">
+        <span class="section-num">1</span>
+        <div><h2>Datos de la Institución</h2><p>Información general del establecimiento educativo</p></div>
+      </div>
+      <div class="fields">
+        <div class="field full">
+          <label for="institucion">Nombre de la institución <span class="req">*</span></label>
+          <input type="text" id="institucion" placeholder="Nombre completo de la unidad educativa">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="ruc">RUC o cédula del representante <span class="req">*</span></label>
+            <input type="text" id="ruc" placeholder="Ej. 0901234567001">
+          </div>
+          <div class="field">
+            <label for="tipo">Tipo de institución</label>
+            <select id="tipo">
+              <option value="">Seleccione…</option>
+              <option>Fiscal</option><option>Fiscomisional</option>
+              <option>Particular</option><option>Municipal</option>
+              <option>Fuerzas Armadas / Policía</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="representante">Representante / rector <span class="req">*</span></label>
+            <input type="text" id="representante" placeholder="Nombre y cargo">
+          </div>
+          <div class="field">
+            <label for="telefono">Teléfono de contacto <span class="req">*</span></label>
+            <input type="tel" id="telefono" placeholder="Ej. 0991234567">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="parroquia">Parroquia</label>
+            <input type="text" id="parroquia" placeholder="Parroquia">
+          </div>
+          <div class="field">
+            <label for="canton">Cantón</label>
+            <input type="text" id="canton" placeholder="Cantón">
+          </div>
+        </div>
+        <div class="field">
+          <label for="provincia">Provincia</label>
+          <input type="text" id="provincia" placeholder="Provincia">
+        </div>
+      </div>
+    </div>
+
+    <!-- S2: Población Estudiantil -->
+    <div class="form-section">
+      <div class="section-header">
+        <span class="section-num">2</span>
+        <div><h2>Población Estudiantil</h2><p>Total de estudiantes por nivel, desglosado por género</p></div>
+      </div>
+      <div class="fields">
+        <!-- 9no -->
+        <div>
+          <label style="margin-bottom:8px;">9.° grado <span style="font-weight:300;color:var(--ink-3)">(Básica Superior)</span></label>
+          <div class="field-row thirds">
+            <div class="field"><label for="n9h"><span class="sub-label">Hombres</span></label><input type="number" id="n9h" min="0" placeholder="0" oninput="calcTotals()"></div>
+            <div class="field"><label for="n9m"><span class="sub-label">Mujeres</span></label><input type="number" id="n9m" min="0" placeholder="0" oninput="calcTotals()"></div>
+            <div class="field"><label><span class="sub-label">Total</span></label><div class="total-chip" id="t9">0</div></div>
+          </div>
+        </div>
+        <!-- 1ro Bach -->
+        <div>
+          <label style="margin-bottom:8px;">1.° Bachillerato</label>
+          <div class="field-row thirds">
+            <div class="field"><label for="b1h"><span class="sub-label">Hombres</span></label><input type="number" id="b1h" min="0" placeholder="0" oninput="calcTotals()"></div>
+            <div class="field"><label for="b1m"><span class="sub-label">Mujeres</span></label><input type="number" id="b1m" min="0" placeholder="0" oninput="calcTotals()"></div>
+            <div class="field"><label><span class="sub-label">Total</span></label><div class="total-chip" id="tb1">0</div></div>
+          </div>
+        </div>
+        <!-- 2do Bach -->
+        <div>
+          <label style="margin-bottom:8px;">2.° Bachillerato</label>
+          <div class="field-row thirds">
+            <div class="field"><label for="b2h"><span class="sub-label">Hombres</span></label><input type="number" id="b2h" min="0" placeholder="0" oninput="calcTotals()"></div>
+            <div class="field"><label for="b2m"><span class="sub-label">Mujeres</span></label><input type="number" id="b2m" min="0" placeholder="0" oninput="calcTotals()"></div>
+            <div class="field"><label><span class="sub-label">Total</span></label><div class="total-chip" id="tb2">0</div></div>
+          </div>
+        </div>
+        <!-- 3ro Bach -->
+        <div>
+          <label style="margin-bottom:8px;">3.° Bachillerato</label>
+          <div class="field-row thirds">
+            <div class="field"><label for="b3h"><span class="sub-label">Hombres</span></label><input type="number" id="b3h" min="0" placeholder="0" oninput="calcTotals()"></div>
+            <div class="field"><label for="b3m"><span class="sub-label">Mujeres</span></label><input type="number" id="b3m" min="0" placeholder="0" oninput="calcTotals()"></div>
+            <div class="field"><label><span class="sub-label">Total</span></label><div class="total-chip" id="tb3">0</div></div>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:.75rem;display:flex;align-items:center;gap:12px;">
+          <span style="font-size:13px;font-weight:500;color:var(--ink-2);">Total general:</span>
+          <div class="total-chip" id="tTotal" style="font-size:14px;padding:6px 16px;">0 estudiantes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S3: Preferencia -->
+    <div class="form-section">
+      <div class="section-header">
+        <span class="section-num">3</span>
+        <div><h2>Preferencia de Intervención</h2><p>¿Con qué población le gustaría que trabajemos?</p></div>
+      </div>
+      <div class="fields">
+        <div class="field full">
+          <label>Nivel prioritario para las sesiones de PAP <span class="req">*</span></label>
+          <div class="radio-group" id="pobRadioGroup">
+            <label class="radio-item"><input type="radio" name="poblacion" value="9no_grado"><span>9.° grado (Básica Superior)</span></label>
+            <label class="radio-item"><input type="radio" name="poblacion" value="1ro_bachillerato"><span>1.° Bachillerato</span></label>
+            <label class="radio-item"><input type="radio" name="poblacion" value="2do_bachillerato"><span>2.° Bachillerato</span></label>
+            <label class="radio-item"><input type="radio" name="poblacion" value="3ro_bachillerato"><span>3.° Bachillerato</span></label>
+            <label class="radio-item"><input type="radio" name="poblacion" value="9no_y_bachillerato"><span>9.° grado y Bachillerato (combinado)</span></label>
+            <label class="radio-item"><input type="radio" name="poblacion" value="todo_bachillerato"><span>Todo Bachillerato (1.°, 2.° y 3.°)</span></label>
+            <label class="radio-item"><input type="radio" name="poblacion" value="otro"><span>Otro / Nos adaptamos a su necesidad</span></label>
+          </div>
+        </div>
+        <div class="field full">
+          <label for="poblacion_detalle">Especifique o añada contexto (opcional)</label>
+          <textarea id="poblacion_detalle" rows="2" placeholder="Ej. Preferimos 2do y 3ro bachillerato por la proximidad de exámenes…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- S4: Organización de 9no -->
+    <div class="form-section">
+      <div class="section-header">
+        <span class="section-num">4</span>
+        <div><h2>Organización de 9.° Grado</h2><p>Detalle de cursos por turno — horario y número de estudiantes</p></div>
+      </div>
+      <div class="fields">
+
+        <!-- TURNO MAÑANA -->
+        <div class="shift-block">
+          <p class="shift-title">☀ Turno Mañana</p>
+          <div id="man-cursos"></div>
+          <button type="button" class="add-btn" onclick="addCurso('man')">
+            + Agregar curso de mañana
+          </button>
+        </div>
+
+        <!-- TURNO TARDE -->
+        <div class="shift-block">
+          <p class="shift-title">🌙 Turno Tarde</p>
+          <div id="tar-cursos"></div>
+          <button type="button" class="add-btn" onclick="addCurso('tar')">
+            + Agregar curso de tarde
+          </button>
+        </div>
+
+        <!-- OTRO NIVEL DE INTERÉS -->
+        <div>
+          <label style="margin-bottom:8px;font-size:14px;">¿Hay algún otro nivel o grupo que desee incluir?</label>
+          <div id="otros-cursos"></div>
+          <button type="button" class="add-btn" onclick="addOtroCurso()">
+            + Agregar otro nivel / grupo
+          </button>
+        </div>
+
+        <div class="field full">
+          <label for="noveno_obs">Observaciones sobre la organización de 9.° (opcional)</label>
+          <textarea id="noveno_obs" rows="2" placeholder="Ej. El turno tarde tiene menos asistencia los viernes…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- S5: Capacidades -->
+    <div class="form-section">
+      <div class="section-header">
+        <span class="section-num">5</span>
+        <div><h2>Capacidades Institucionales</h2><p>Recursos y contexto para planificar las sesiones</p></div>
+      </div>
+      <div class="fields">
+        <div class="field-row">
+          <div class="field">
+            <label for="frecuencia">Frecuencia de crisis emocionales observadas</label>
+            <select id="frecuencia">
+              <option value="">Seleccione…</option>
+              <option>Diariamente</option><option>Semanalmente</option>
+              <option>Mensualmente</option><option>Ocasionalmente</option>
+              <option>No se han observado</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="dece_num">Psicólogos / profesionales DECE</label>
+            <input type="number" id="dece_num" min="0" placeholder="Número">
+          </div>
+        </div>
+        <div class="field full">
+          <label>Tipos de crisis más frecuentes (puede marcar varios)</label>
+          <div class="check-group">
+            <label class="check-item"><input type="checkbox" name="crisis" value="Ansiedad"><span>Ansiedad / ataques de pánico</span></label>
+            <label class="check-item"><input type="checkbox" name="crisis" value="Autolesiones"><span>Autolesiones o ideación suicida</span></label>
+            <label class="check-item"><input type="checkbox" name="crisis" value="Violencia"><span>Violencia entre pares / bullying</span></label>
+            <label class="check-item"><input type="checkbox" name="crisis" value="Duelo"><span>Duelo o pérdida</span></label>
+            <label class="check-item"><input type="checkbox" name="crisis" value="Abandono"><span>Abandono / problemas familiares</span></label>
+            <label class="check-item"><input type="checkbox" name="crisis" value="Otro"><span>Otro tipo de crisis</span></label>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>¿Existe protocolo institucional de crisis?</label>
+            <div class="radio-group inline">
+              <label class="radio-item"><input type="radio" name="protocolo" value="Sí"><span>Sí</span></label>
+              <label class="radio-item"><input type="radio" name="protocolo" value="No"><span>No</span></label>
+              <label class="radio-item"><input type="radio" name="protocolo" value="En construcción"><span>En construcción</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="celular">% estudiantes con celular</label>
+            <select id="celular">
+              <option value="">Seleccione…</option>
+              <option>Menos del 25 %</option><option>25–50 %</option>
+              <option>51–75 %</option><option>Más del 75 %</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>¿Los estudiantes tienen internet en casa?</label>
+          <div class="radio-group inline">
+            <label class="radio-item"><input type="radio" name="internet" value="Sí, la mayoría"><span>Sí, la mayoría</span></label>
+            <label class="radio-item"><input type="radio" name="internet" value="Solo algunos"><span>Solo algunos</span></label>
+            <label class="radio-item"><input type="radio" name="internet" value="No"><span>No</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S6: Contrapartida -->
+    <div class="form-section">
+      <div class="section-header">
+        <span class="section-num">6</span>
+        <div><h2>Contrapartida y Disponibilidad</h2><p>Coordinación para la ejecución del proyecto</p></div>
+      </div>
+      <div class="fields">
+        <div class="field full">
+          <label>¿Qué puede aportar la institución?</label>
+          <div class="check-group">
+            <label class="check-item"><input type="checkbox" name="contrapartida" value="Aula"><span>Aula o espacio físico</span></label>
+            <label class="check-item"><input type="checkbox" name="contrapartida" value="Proyector"><span>Proyector / pantalla</span></label>
+            <label class="check-item"><input type="checkbox" name="contrapartida" value="Internet"><span>Acceso a internet institucional</span></label>
+            <label class="check-item"><input type="checkbox" name="contrapartida" value="Coordinacion DECE"><span>Coordinación con DECE</span></label>
+            <label class="check-item"><input type="checkbox" name="contrapartida" value="Refrigerio"><span>Refrigerio para facilitadores</span></label>
+            <label class="check-item"><input type="checkbox" name="contrapartida" value="Ninguna"><span>Ninguna en este momento</span></label>
+          </div>
+        </div>
+        <div class="field full">
+          <label for="horario">Días y horario disponibles para las sesiones</label>
+          <input type="text" id="horario" placeholder="Ej. Martes y jueves de 09:00 a 11:00">
+        </div>
+        <div class="field full">
+          <label for="observaciones">Observaciones adicionales</label>
+          <textarea id="observaciones" rows="3" placeholder="Cualquier información relevante para la planificación…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <p class="privacy-note">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Los datos serán usados únicamente con fines académicos — UPS Período 68
+      </p>
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <svg id="btnIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        <svg id="btnSpinner" class="spinner hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="31.4" stroke-dashoffset="10"/></svg>
+        <span id="btnText">Enviar diagnóstico</span>
+      </button>
+    </div>
+  </form>
+
+  <div id="successScreen" class="success-screen hidden">
+    <div class="success-icon">✓</div>
+    <h2>¡Diagnóstico enviado!</h2>
+    <p>Gracias por completar el formulario. El equipo de <em>ANCLA: Acción en Crisis</em> se comunicará con su institución para coordinar las sesiones.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <button class="reset-btn" onclick="resetForm()">Enviar otra respuesta</button>
+      <button class="reset-btn" id="xlsBtn" onclick="exportXLS()" style="border-color:var(--accent);color:var(--accent);display:flex;align-items:center;gap:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span id="xlsBtnText">Descargar mis respuestas (.csv)</span>
+      </button>
+    </div>
+  </div>
+</main>
+
+<script>
+const CONFIG = { GOOGLE_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwX2Kaq0Fj2LpcCeXoC5rerJhv365G-0Mvzcvh6Ken2TipvIfGO4UYrZnJuX2ObX9OT/exec", TOTAL_SECTIONS: 6 };
+
+// ── Contadores de cursos ──────────────────────────────────
+let manCount = 0, tarCount = 0, otroCount = 0;
+
+function addCurso(turno) {
+  const container = document.getElementById(turno + "-cursos");
+  const isMan = turno === "man";
+  const n = isMan ? ++manCount : ++tarCount;
+  const prefix = turno + "_" + n;
+  const label = isMan ? "Mañana" : "Tarde";
+
+  const div = document.createElement("div");
+  div.className = "curso-row";
+  div.id = "row-" + prefix;
+  div.innerHTML = `
+    <span class="curso-label">${label} ${n}</span>
+    <div class="field">
+      <label><span class="sub-label">Paralelo / nombre</span></label>
+      <input type="text" id="${prefix}_nombre" placeholder="Ej. A, B, C…" oninput="updateProgress()">
+    </div>
+    <div class="field">
+      <label><span class="sub-label">N.° estudiantes</span></label>
+      <input type="number" id="${prefix}_num" min="0" placeholder="0" oninput="calcTotals()">
+    </div>
+    <div class="field">
+      <label><span class="sub-label">Horario</span></label>
+      <input type="text" id="${prefix}_horario" placeholder="07:00 – 12:30" oninput="updateProgress()">
+    </div>
+    <button type="button" class="del-btn" onclick="delRow('row-${prefix}')" title="Eliminar">×</button>
+  `;
+  container.appendChild(div);
+  updateProgress();
+}
+
+function addOtroCurso() {
+  const container = document.getElementById("otros-cursos");
+  const n = ++otroCount;
+  const prefix = "otro_" + n;
+
+  const div = document.createElement("div");
+  div.id = "row-" + prefix;
+  div.style.cssText = "display:grid;grid-template-columns:1fr 1fr 28px;gap:8px;align-items:end;margin-bottom:8px;";
+  div.innerHTML = `
+    <div class="field">
+      <label><span class="sub-label">Nivel o grupo ${n}</span></label>
+      <input type="text" id="${prefix}_nivel" placeholder="Ej. 10mo EGB, 1ro Bachillerato…" oninput="updateProgress()">
+    </div>
+    <div class="field">
+      <label><span class="sub-label">N.° estudiantes</span></label>
+      <input type="number" id="${prefix}_num" min="0" placeholder="0" oninput="calcTotals()">
+    </div>
+    <button type="button" class="del-btn" onclick="delRow('row-${prefix}')" title="Eliminar">×</button>
+  `;
+  container.appendChild(div);
+  updateProgress();
+}
+
+function delRow(id) {
+  document.getElementById(id)?.remove();
+  updateProgress();
+}
+
+// ── Totales ───────────────────────────────────────────────
+function nv(id) { return parseInt(document.getElementById(id)?.value) || 0; }
+
+function calcTotals() {
+  const t9  = nv("n9h") + nv("n9m");
+  const tb1 = nv("b1h") + nv("b1m");
+  const tb2 = nv("b2h") + nv("b2m");
+  const tb3 = nv("b3h") + nv("b3m");
+  const tot = t9 + tb1 + tb2 + tb3;
+  document.getElementById("t9").textContent   = t9  + " est.";
+  document.getElementById("tb1").textContent  = tb1 + " est.";
+  document.getElementById("tb2").textContent  = tb2 + " est.";
+  document.getElementById("tb3").textContent  = tb3 + " est.";
+  document.getElementById("tTotal").textContent = tot + " estudiantes";
+  updateProgress();
+}
+
+// ── Progreso ──────────────────────────────────────────────
+function updateProgress() {
+  const sections = document.querySelectorAll(".form-section");
+  let filled = 0;
+  sections.forEach(sec => {
+    const inputs = sec.querySelectorAll("input, select, textarea");
+    let has = false;
+    inputs.forEach(el => {
+      if (el.type === "checkbox" || el.type === "radio") { if (el.checked) has = true; }
+      else if (el.value.trim() !== "") has = true;
+    });
+    if (has) filled++;
+  });
+  const pct = Math.round((filled / CONFIG.TOTAL_SECTIONS) * 100);
+  document.getElementById("pbar").style.width = pct + "%";
+  document.getElementById("plabel").textContent = filled + " de " + CONFIG.TOTAL_SECTIONS + " secciones";
+}
+
+// ── Recolectar datos de cursos dinámicos ──────────────────
+function collectCursos(turno, count) {
+  const result = [];
+  for (let i = 1; i <= count; i++) {
+    const prefix = turno + "_" + i;
+    const row = document.getElementById("row-" + prefix);
+    if (!row) continue;
+    result.push({
+      nombre: document.getElementById(prefix + "_nombre")?.value.trim() || "",
+      num: parseInt(document.getElementById(prefix + "_num")?.value) || 0,
+      horario: document.getElementById(prefix + "_horario")?.value.trim() || ""
+    });
+  }
+  return result;
+}
+
+function collectOtros(count) {
+  const result = [];
+  for (let i = 1; i <= count; i++) {
+    const prefix = "otro_" + i;
+    const row = document.getElementById("row-" + prefix);
+    if (!row) continue;
+    result.push({
+      nivel: document.getElementById(prefix + "_nivel")?.value.trim() || "",
+      num: parseInt(document.getElementById(prefix + "_num")?.value) || 0
+    });
+  }
+  return result;
+}
+
+// ── Recolectar datos ──────────────────────────────────────
+function collectData() {
+  const get = id => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
+  const getChecked = name => Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(c => c.value).join(", ");
+  const getRadio = name => { const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : ""; };
+
+  const n9h=nv("n9h"),n9m=nv("n9m"),b1h=nv("b1h"),b1m=nv("b1m"),b2h=nv("b2h"),b2m=nv("b2m"),b3h=nv("b3h"),b3m=nv("b3m");
+
+  const manCursos = collectCursos("man", manCount);
+  const tarCursos = collectCursos("tar", tarCount);
+  const otrosCursos = collectOtros(otroCount);
+
+  return {
+    Timestamp: new Date().toLocaleString("es-EC"),
+    Institucion: get("institucion"),
+    RUC_Cedula: get("ruc"),
+    Tipo_Institucion: get("tipo"),
+    Representante: get("representante"),
+    Telefono_Contacto: get("telefono"),
+    Parroquia: get("parroquia"),
+    Canton: get("canton"),
+    Provincia: get("provincia"),
+    Noveno_Hombres: n9h, Noveno_Mujeres: n9m, Noveno_Total: n9h + n9m,
+    Bach1_Hombres: b1h, Bach1_Mujeres: b1m, Bach1_Total: b1h + b1m,
+    Bach2_Hombres: b2h, Bach2_Mujeres: b2m, Bach2_Total: b2h + b2m,
+    Bach3_Hombres: b3h, Bach3_Mujeres: b3m, Bach3_Total: b3h + b3m,
+    Total_Estudiantes: n9h+n9m+b1h+b1m+b2h+b2m+b3h+b3m,
+    Poblacion_Preferida: getRadio("poblacion"),
+    Poblacion_Detalle: get("poblacion_detalle"),
+    Noveno_Manana_Cursos: JSON.stringify(manCursos),
+    Noveno_Tarde_Cursos: JSON.stringify(tarCursos),
+    Otros_Niveles: JSON.stringify(otrosCursos),
+    Noveno_Obs: get("noveno_obs"),
+    Frecuencia_Crisis: get("frecuencia"),
+    Tipos_Crisis: getChecked("crisis"),
+    Protocolo_Institucional: getRadio("protocolo"),
+    Acceso_Celular: get("celular"),
+    Internet_Estudiantes: getRadio("internet"),
+    Contrapartida: getChecked("contrapartida"),
+    Horario_Disponible: get("horario"),
+    Observaciones: get("observaciones"),
+  };
+}
+
+// ── Validación ────────────────────────────────────────────
+function validate() {
+  let ok = true;
+  [
+    { id: "institucion", msg: "Ingrese el nombre de la institución" },
+    { id: "ruc",         msg: "Ingrese el RUC o cédula" },
+    { id: "representante", msg: "Ingrese el nombre del representante" },
+    { id: "telefono",    msg: "Ingrese un teléfono de contacto" },
+  ].forEach(({ id, msg }) => {
+    const el = document.getElementById(id);
+    el.parentElement.querySelector(".field-error")?.remove();
+    el.classList.remove("error");
+    if (!el.value.trim()) {
+      el.classList.add("error");
+      const err = document.createElement("span");
+      err.className = "field-error"; err.textContent = msg;
+      el.after(err); ok = false;
+    }
+  });
+  if (!document.querySelector('input[name="poblacion"]:checked')) {
+    const g = document.getElementById("pobRadioGroup");
+    g.parentElement.querySelector(".field-error")?.remove();
+    const err = document.createElement("span");
+    err.className = "field-error"; err.textContent = "Seleccione la población preferida";
+    g.after(err); ok = false;
+  }
+  if (!ok) document.querySelector(".error, .field-error")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  return ok;
+}
+
+// ── Envío ─────────────────────────────────────────────────
+async function sendToGoogleSheets(data) {
+  if (!CONFIG.GOOGLE_SCRIPT_URL || CONFIG.GOOGLE_SCRIPT_URL.includes("PEGA_AQUI")) {
+    console.warn("URL no configurada — datos en consola:", data);
+    return { ok: true, simulated: true };
+  }
+  await fetch(CONFIG.GOOGLE_SCRIPT_URL, {
+    method: "POST", mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return { ok: true };
+}
+
+document.getElementById("mainForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  if (!validate()) return;
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  document.getElementById("btnText").textContent = "Enviando…";
+  document.getElementById("btnIcon").classList.add("hidden");
+  document.getElementById("btnSpinner").classList.remove("hidden");
+  try {
+    lastData = collectData();
+    await sendToGoogleSheets(lastData);
+    document.getElementById("mainForm").classList.add("hidden");
+    document.getElementById("successScreen").classList.remove("hidden");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch (err) {
+    alert("Hubo un problema al enviar. Intente nuevamente.");
+    btn.disabled = false;
+    document.getElementById("btnText").textContent = "Enviar diagnóstico";
+    document.getElementById("btnIcon").classList.remove("hidden");
+    document.getElementById("btnSpinner").classList.add("hidden");
+  }
+});
+
+// ── Exportar CSV (abre en Excel) ──────────────────────────
+let lastData = null;
+let downloadsApi = null;
+
+// Inicializar capability de descarga
+(async () => {
+  downloadsApi = await claude.use("downloads");
+})();
+
+async function exportXLS() {
+  if (!lastData) return;
+  const btn = document.getElementById("xlsBtn");
+  const txt = document.getElementById("xlsBtnText");
+  btn.disabled = true;
+  txt.textContent = "Preparando…";
+
+  try {
+    const headers = Object.keys(lastData);
+    const values  = Object.values(lastData).map(v => {
+      const s = String(v ?? "").replace(/"/g, '""');
+      return `"${s}"`;
+    });
+    const bom = "﻿";
+    const csv = bom + headers.join(";") + "\n" + values.join(";");
+    const ts  = new Date().toISOString().slice(0,10);
+
+    if (downloadsApi) {
+      await downloadsApi.save({
+        filename: `diagnostico_ancla_${ts}.csv`,
+        data: new Blob([csv], { type: "text/csv;charset=utf-8;" })
+      });
+    } else {
+      // Fallback para GitHub Pages (fuera del artifact viewer)
+      const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8;" }));
+      const a   = document.createElement("a");
+      a.href = url; a.download = `diagnostico_ancla_${ts}.csv`;
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  } catch(e) {
+    console.warn("Descarga:", e);
+  } finally {
+    btn.disabled = false;
+    txt.textContent = "Descargar mis respuestas (.csv)";
+  }
+}
+
+function resetForm() {
+  document.getElementById("mainForm").reset();
+  document.getElementById("mainForm").classList.remove("hidden");
+  document.getElementById("successScreen").classList.add("hidden");
+  ["man-cursos","tar-cursos","otros-cursos"].forEach(id => document.getElementById(id).innerHTML = "");
+  manCount = 0; tarCount = 0; otroCount = 0;
+  calcTotals();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.querySelectorAll("input, select, textarea").forEach(el => {
+  el.addEventListener("input", updateProgress);
+  el.addEventListener("change", updateProgress);
+});
+calcTotals();
+</script>
